@@ -1,174 +1,59 @@
-# Reproducibility Assessment Checklist
+# Reproduction and Verification Readiness
 
-## Assessment Summary Format
+Assess whether someone could independently check the paper's key result with the documented materials. This is a readiness assessment, not a claim that reproduction has been performed. Readiness and scientific evidence strength are separate judgments.
 
-At the end of the reproducibility assessment, provide a summary:
+Use the applicable [paper-type criteria](paper-types.md). Review accessible supplements before declaring information absent. Code, weights, training, and public datasets are not universal requirements.
 
-```
-### 可复现性评分
+## Status vocabulary
 
-| 维度 | 评分 | 说明 |
-|:-----|:----:|:-----|
-| 代码开源 | [✅/⚠️/❌] | [Details] |
-| 数据可用 | [✅/⚠️/❌] | [Details] |
-| 训练细节 | [✅/⚠️/❌] | [Details] |
-| 消融实验 | [✅/⚠️/❌] | [Details] |
-| 评估指标 | [✅/⚠️/❌] | [Details] |
+| Status | Meaning |
+| --- | --- |
+| ✅ Sufficient | The relevant inspected materials adequately specify this dimension. Say what was inspected. |
+| ⚠️ Partial | Inspected materials provide some needed information but leave a concrete gap. |
+| ❌ Missing / obstructed | A required item is confirmed absent from the reviewed material or blocked under the stated conditions. Name that scope; do not imply universal unavailability. |
+| ? Unknown / unverified | Not inspected, inaccessible, or insufficient information to determine status. |
+| N/A | Not needed for this paper's central result. Give a brief reason. |
 
-**总体可复现性**: [高/中/低/不可复现]
-**关键障碍**: [What would block someone from reproducing this work]
-```
+Missing a link in the paper means external code status is unknown, not necessarily closed. A statement of intended release is not a verified release. Restricted data may require an access process; assess that process and the resulting barrier rather than equating restricted licensing with invalid science.
 
-Legend:
-- ✅ = Satisfactory
-- ⚠️ = Partially addressed, some gaps
-- ❌ = Missing or seriously insufficient
+## Dimensions to select
 
----
+| Dimension | Relevant checks |
+| --- | --- |
+| Code / computational artifacts | Official location and inspected version; implementation needed for the claim; dependencies and commands; configurations; weights only if the method needs them; actual license/access conditions. Distinguish author-reported availability from inspected contents and from successful execution. |
+| Data / study material | Identity/version, access or documented acquisition process, generation/collection protocol, preprocessing, splits, annotation, provenance, and permitted use. For protected data, record accessible protocols and unresolved barriers. |
+| Method / protocol / proof | Definitions and assumptions; complete derivation or procedure; for ML, applicable architecture, optimizer, schedule, batch/steps, seed policy, prompts, hardware; for reviews/studies, search/sampling/analysis protocol. |
+| Evaluation procedure | Metric formulas/aggregation, test conditions, evaluation code or proof-checking route, randomization and uncertainty where relevant, human/LLM evaluation procedure when used. |
+| Resources and environment | Software/hardware versions and compute needs when material to reproduction. For manual proof verification this may be N/A. |
 
-## Dimension 1: Code Availability
+For a purely analytic paper, prioritize proof completeness and assumptions and mark computational dimensions N/A. For inference-only work, training details may be N/A while model version, prompts, decoding, and evaluation remain essential. For a review, replace model/data checks with search, screening, extraction, and synthesis materials as appropriate.
 
-### Check Items
+## Report
 
-- [ ] Is there a GitHub repository link?
-- [ ] Is the repo public (not 404)?
-- [ ] Does it contain the core training code (not just evaluation)?
-- [ ] Are dependencies listed (requirements.txt / environment.yml)?
-- [ ] Are there instructions for running the code?
-- [ ] Is the license permissive?
-- [ ] Is there a checkpoint/model weights download link?
-- [ ] Are the configs/hyperparameters for reproducing key results provided?
+Use a compact table in Reading → Deep and Review unless the user's format excludes tables. Select meaningful rows; do not add irrelevant rows merely to fill a fixed five-part score.
 
-### Rating
+| Applicable dimension | Status | Evidence / location / inspected scope | Remaining obstacle |
+| --- | --- | --- | --- |
 
-- **✅**: Code + weights + instructions all available
-- **⚠️**: Partial release (e.g., inference only, or missing key components)
-- **❌**: No code or placeholder only
+Then state:
 
----
+- **Basis**: paper/excerpt/supplement/repository inspected; whether anything was actually run.
+- **Readiness**: high, medium, low, or undetermined, with the decisive reason.
+- **Next check**: the concrete material or check needed to resolve the most important uncertainty, if any.
 
-## Dimension 2: Data Availability
+| Readiness | Meaning |
+| --- | --- |
+| High | Relevant accessible materials are sufficient to verify key results; this remains a documentation-based assessment unless execution was performed. |
+| Medium | A plausible route exists, with specific gaps or substantial effort. |
+| Low | Confirmed material/access barriers prevent checking important results under the stated conditions. |
+| Undetermined | Too much necessary material is uninspected or unavailable to make an overall judgment, as with an abstract alone. |
 
-### Check Items
+Do not average statuses, count N/A as failure, or convert unknown into low readiness. A known decisive obstacle may justify low readiness despite other unknowns, but name that obstacle precisely. Reserve claims of failed reproduction for an actual attempt with recorded conditions and discrepancies; lack of documentation alone does not prove a result impossible to reproduce.
 
-- [ ] Is the dataset publicly available?
-- [ ] If synthetic: is the generation pipeline/code provided?
-- [ ] If proprietary: is there a clear description of why it can't be released?
-- [ ] Are data statistics clearly reported?
-- [ ] Are train/val/test splits clearly defined?
-- [ ] Are preprocessing steps documented?
-- [ ] Are examples provided to understand data format?
+## Evidence quality is a separate question
 
-### Rating
+Ablations, matched baselines, robustness tests, and uncertainty address how convincingly the claims are supported. Discuss them in the evidence/review section. Their absence can weaken a causal or performance claim even when the available experiment is easy to rerun. Conversely, persuasive reported results may remain hard to reproduce because required artifacts are inaccessible.
 
-- **✅**: Full dataset or generation code available
-- **⚠️**: Partial (e.g., only test set, or samples only)
-- **❌**: No data and no clear path to obtain/recreate
+## Optional resource estimate
 
----
-
-## Dimension 3: Training Detail Completeness
-
-### Check Items
-
-- [ ] Model architecture fully specified (backbone, layers, dimensions)?
-- [ ] Training objective(s) clearly stated with formulas?
-- [ ] Optimizer, learning rate, scheduler specified?
-- [ ] Batch size, number of epochs/steps specified?
-- [ ] Hardware used (GPU type, count, memory)?
-- [ ] Training time / wall clock time reported?
-- [ ] Random seeds specified?
-- [ ] Number of runs for error bars?
-- [ ] Prompt templates (if applicable) provided?
-- [ ] Data augmentation details (if applicable)?
-
-### Common Gaps
-
-- "Trained with Adam" but no learning rate
-- "Standard augmentation" without specifics
-- Hyperparameters mentioned in text but values differ from appendix
-- Learning rate schedule mentioned but warmup steps missing
-
-### Rating
-
-- **✅**: All details present; another researcher could replicate with the paper alone
-- **⚠️**: Most details present but 1-2 non-critical gaps
-- **❌**: Major details missing; replication would require guessing
-
----
-
-## Dimension 4: Ablation Study Completeness
-
-### Check Items
-
-- [ ] Is each proposed module/component ablated?
-- [ ] Are loss terms individually validated?
-- [ ] Are hyperparameter sensitivity studies included?
-- [ ] Is the contribution of each component quantified?
-- [ ] Are "negative results" or failed attempts discussed?
-- [ ] Is there an analysis of when/why the method fails?
-- [ ] Are alternative design choices compared (not just "with vs without")?
-
-### Red Flags
-
-- Only one big ablation: "Ours vs Ours w/o everything" — doesn't tell which component matters
-- Ablations only on one dataset or one setting
-- No hyperparameter sensitivity analysis
-- Each component adds <1% but presented as important
-
-### Rating
-
-- **✅**: Exhaustive ablations covering all components across settings
-- **⚠️**: Key components ablated but some gaps
-- **❌**: No ablation or trivial single ablation
-
----
-
-## Dimension 5: Evaluation Metric Appropriateness
-
-### Check Items
-
-- [ ] Are metrics standard for this task/domain?
-- [ ] If a new metric is proposed: is it justified? Validated?
-- [ ] Are statistical significance tests reported?
-- [ ] Are confidence intervals or error bars shown?
-- [ ] Are results reported on multiple random seeds?
-- [ ] If using LLM-as-a-Judge: is the judge model specified? Prompt provided? Correlation with human judgment reported?
-- [ ] Are metric calculations clearly defined (macro vs micro, aggregation method)?
-
-### Common Issues
-
-- Accuracy on imbalanced dataset without F1/AUROC
-- "Human evaluation" without details on raters, scale, instructions, agreement
-- LLM-as-a-Judge without calibration or human correlation
-- Point estimates without any measure of variance
-
-### Rating
-
-- **✅**: Standard metrics + statistical tests + error bars + multiple seeds
-- **⚠️**: Reasonable metrics but missing statistical rigor
-- **❌**: Inappropriate metrics or missing critical information
-
----
-
-## Overall Reproducibility Assessment
-
-Combine the five dimensions into an overall assessment:
-
-| 评级 | 含义 |
-|:-----|:-----|
-| **高** | Expert in the field could reproduce key results within reasonable time |
-| **中** | Possible but would require significant effort or filling in gaps |
-| **低** | Major barriers; unlikely to be reproduced without author assistance |
-| **不可复现** | Critical information missing; claims cannot be independently verified |
-
----
-
-## Compute Requirements Assessment (bonus)
-
-If training from scratch is required:
-- Estimated GPU hours
-- Estimated cost (at cloud pricing)
-- Is it practical for most academic labs?
-
-Example: "Training requires 8×A100 for 3 days ≈ 576 GPU-hours ≈ $1,152 at $2/GPU-hr. This is reasonable for most well-funded labs."
+Estimate compute only when useful and inputs are supplied or verified. Show assumptions and arithmetic: device count × hours × runs. Distinguish training, tuning, and evaluation. For money estimates, include the actual price source/date and currency, or explicitly use a hypothetical rate; do not present an old example price as current. Avoid asserting affordability for an unspecified lab or user.

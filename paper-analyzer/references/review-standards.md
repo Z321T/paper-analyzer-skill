@@ -1,136 +1,60 @@
-# Review Standards for Paper Analysis
+# Review Standards
 
-## Review Format
+Evaluate the claim against the evidence actually available, using the relevant [paper type](paper-types.md). The [Review template](modes/review.md) defines output structure; this file defines judgment criteria.
 
-Use the professional peer-review format: **Summary / Strengths / Weaknesses / Questions**.
+## What makes a useful review
 
----
+- A summary identifies the problem, claimed contribution, approach, and central evidence before evaluating them.
+- A strength or weakness cites an actual section, table, figure, proof, or identifiable passage.
+- A concern explains its consequence for a specific claim and proposes a proportionate way to resolve it.
+- Questions are answerable, specific, not already answered in reviewed material, and consequential for the assessment.
+- Separate missing evidence, counterevidence, inaccessible material, and inapplicable criteria.
 
-## Summary Writing Guide
+## Criteria
 
-The summary should:
-1. Restate the problem and the paper's claimed contribution (1-2 sentences)
-2. Summarize the technical approach (1-2 sentences)
-3. Give an overall assessment (1 sentence)
+| Dimension | Questions |
+| --- | --- |
+| Novelty | What do the authors claim is new? How does it differ from identified prior work available at the time? Has this comparison actually been checked? |
+| Significance | Which problem or audience benefits, under what assumptions and scale? |
+| Correctness | Are definitions, assumptions, derivations, algorithms, and conclusions consistent? |
+| Evidence | Do the experiments, proofs, observations, or synthesis support the exact scope of the claims? |
+| Comparisons | Are baseline selection and evaluation conditions fair for the relevant historical context? |
+| Clarity | Could a reader follow the method/argument and distinguish observations from interpretation? |
+| Verification readiness | Are the relevant materials and protocols sufficient to check the key results? |
 
-Keep it under 150 words. Do not repeat the abstract — summarize from a reviewer's perspective.
+Check relevant failure modes, rather than applying a universal ML checklist: overgeneralization; data leakage; unmatched baselines; selection bias; omitted assumptions; invalid proof steps; causal claims without causal identification; unjustified metrics; missing uncertainty where it affects the conclusion; component attribution without a suitable test; or unreported details needed to verify a result.
 
----
+“Not statistically tested” does not establish “no improvement.” “No ablation” matters when a component contribution is claimed; it is not automatically a flaw in a theorem, survey, or teaching note. A small percentage change may matter depending on baseline, uncertainty, and task.
 
-## Strengths Assessment
+Describe observable gaps. Do not infer dishonesty, deliberate obscurity, or cherry-picking solely from missing information. If a supplement could resolve a concern but is inaccessible, mark the concern provisional.
 
-When identifying strengths, evaluate across these dimensions:
+## Claim–evidence mapping
 
-| 维度 | 评估标准 |
-|:-----|:---------|
-| **新颖性** (Novelty) | 问题定义、方法设计、或发现是否真正新颖？ |
-| **重要性** (Significance) | 解决了领域中的重要问题吗？谁会关心这个结果？ |
-| **技术质量** (Technical Quality) | 方法设计是否合理？推导是否严谨？实现是否可靠？ |
-| **实验充分性** (Experimental Adequacy) | 实验是否覆盖了所有声明？对比是否公平？ |
-| **呈现质量** (Presentation) | 写作是否清晰？图表是否有帮助？ |
-| **实用性** (Practical Value) | 方法是否可部署？是否需要过多资源？ |
+1. Extract central claims from the abstract/introduction/conclusion, then check their precise qualifications in the body.
+2. Locate the relevant experiment, proof, observation, or systematic synthesis.
+3. Record the tested/proven scope, assumptions, and alternative explanations.
+4. Assess support using the rubric below; justify the label rather than counting experiments.
 
-Each strength should cite specific evidence (section number, figure, table).
+| Assessment | Meaning |
+| --- | --- |
+| Strong | Evidence directly establishes the claim within its stated scope; key assumptions and plausible alternatives are addressed. A valid proof can qualify without experiments. |
+| Adequate | Evidence supports a bounded conclusion, with limitations that should remain explicit. |
+| Weak | Indirect, ambiguous, or insufficient evidence for the stated breadth of the claim. Qualitative evidence is not inherently weak; judge its design and fit. |
+| Unsupported in reviewed material | The relevant accessible material contains no adequate backing for the claim. This does not prove the claim false. |
+| Contradicted | Identifiable evidence or a valid counterexample conflicts with the claim under its stated assumptions. |
+| Unknown | Required material could not be inspected, or interpretation remains unresolved. |
 
----
+### Synthetic calibration examples
 
-## Weaknesses Assessment
+- Claim: “All processing stays on device.” Evidence: inspected architecture specifies no remote processing. This supports the architecture claim to that inspected extent; it does not establish actual runtime behavior unless checked.
+- Claim: “The system guarantees complete privacy.” Evidence: only the same local architecture. Support is insufficient for the broader claim without a threat model and relevant analysis; this is not evidence that a leak occurred.
+- Claim: “Accuracy improves on split A.” Evidence: the same protocol reports 80% versus 82%. The point estimate increases by 2 percentage points; significance and generalization remain unknown without further evidence.
+- Claim: “The identity holds for every positive integer.” Evidence: correct base case and complete inductive step. The proof may strongly support the theorem without code, weights, or experiments.
 
-### Classification
+## Severity and recommendation
 
-**Major Issues** (影响论文的接受决定):
-- 方法有根本性缺陷
-- 核心声明缺乏实验支撑
-- 与现有工作的对比不公平或不充分
-- 实验结果不支持结论
-- 遗漏关键相关工作
-- 可复现性严重问题
+A major issue changes the validity or scope of a central conclusion, or blocks checking it. A minor issue affects presentation or a bounded detail without overturning the main result. Explain severity from consequences, not from checklist counts.
 
-**Minor Issues** (可通过修改解决):
-- 写作或呈现问题
-- 缺少消融实验但非致命
-- 数据集或评估的次要局限
-- 超参数选择缺乏论证
-- 图表可读性
+Use a supplied venue rubric when the user requests a submission-style recommendation. Without one, prioritize a justified narrative assessment; if the user explicitly asks for accept/reject, state the assumed standard. Do not invent venue-specific numeric scales. Novelty and correctness are separate: a known correct identity may be useful teaching material without being a novel research contribution.
 
-### Common Flaws to Check
-
-1. **过声明 (Overclaiming)**: 标题/摘要声称的内容远超实验实际支撑的范围
-2. **不公平对比**: 基线的实现或调参不充分，对比条件不对等
-3. **信息泄露**: 训练集和测试集之间存在不应有的重叠
-4. **确认偏误**: 只展示支持结论的实验，忽略不利证据
-5. **Ablation不够**: 消融实验不完整，无法确定每个模块的真实贡献
-6. **随机种子不足**: 没有多种子实验或误差线
-7. **过时基线**: 对比的基线不是当前 SOTA
-8. **指标选择**: 使用了对任务不敏感或不恰当的评估指标
-9. **规模局限**: 实验只在小型数据集或单一领域进行
-10. **"Secrecy by obscurity"**: 关键实现细节缺失，故意模糊
-
----
-
-## Claim-Evidence Mapping
-
-This is the core of critical reading. For each major claim in the paper:
-
-### Procedure
-
-1. **Extract all major claims** from: Abstract + Introduction (end) + Conclusion
-2. **For each claim, find**:
-   - Which table/figure/section supports it?
-   - Is the evidence quantitative or qualitative?
-   - What's the sample size / statistical power?
-   - Are there confounds or alternative explanations?
-3. **Rate the evidence**: Strong / Adequate / Weak / None
-4. **Flag gaps**: When a claim is broad but evidence is narrow
-
-### Example from PersonaVLM
-
-| 声明 | 支撑 | 证据力度 |
-|:-----|:-----|:---------|
-| "长期个性化" | 最长实验 = 128k 上下文（约数百轮对话） | Adequate — 覆盖数月交互是否算"长期"有待商榷 |
-| "超越 GPT-4o" | 多基准 + 自动化评估 + Gemini评判 | Strong — 多维度验证 |
-| "自包含，保护隐私" | 使用 7B 开源模型本地运行 | Strong — 设计级别支撑 |
-
-### Red Flags
-
-- Claim: "Our method achieves state-of-the-art performance" → Check: which datasets? which baselines? which metrics? only one cherry-picked setting?
-- Claim: "This demonstrates the importance of X" → Check: is X the only difference? is the improvement significant?
-- Claim: "Our approach is general" → Check: tested on how many domains/tasks/models?
-- Claim: "First to do X" → Check: literature review thorough? ArXiv search?
-
----
-
-## Questions for Authors
-
-Questions should be:
-1. **Actionable**: the authors could reasonably answer
-2. **Specific**: cite exact sections, tables, figures
-3. **Diagnostic**: answers would change the review assessment
-4. **Non-obvious**: not answered already in the paper text
-
-Bad: "Why did you choose this method?" (too vague)
-Good: "In Section 3.2, you use cosine decay for λ. How sensitive is performance to the decay rate? Table 3 shows results for λ₀=0.3, but what happens at λ₀=0.1 or λ₀=0.5?"
-
----
-
-## Rating Guidelines
-
-### Overall Rating
-
-| Rating | Criteria |
-|:-------|:---------|
-| **Strong Accept** | Novel, significant, technically flawless, exhaustive experiments, well-written |
-| **Accept** | Novel or significant, technically sound, solid experiments |
-| **Weak Accept** | Incremental but solid, or novel but experiments incomplete |
-| **Borderline** | Interesting idea but major concerns about correctness or completeness |
-| **Reject** | Fatal flaw, insufficient novelty, or claims unsupported by evidence |
-
-### Confidence
-
-| Level | Criteria |
-|:------|:---------|
-| **High** | Expert in this exact sub-area, fully understand method and experiments |
-| **Medium** | Familiar with the area, understand the main contributions |
-| **Low** | Adjacent area, may miss nuances |
-
-If confidence is Low, note it explicitly and qualify the review accordingly.
+Describe confidence through actual coverage and checks: complete vs excerpted source, inspected proofs/tables/supplements, verified comparisons, and unresolved ambiguities. Do not claim personal expert credentials or certainty based only on fluent exposition.

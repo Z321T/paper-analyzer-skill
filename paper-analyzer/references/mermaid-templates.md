@@ -1,12 +1,16 @@
 # Mermaid Diagram Templates for Paper Analysis
 
-Use these templates as starting points. Adapt node labels and structure to the specific paper. Always wrap in ```mermaid code blocks.
+Use only the template relevant to the requested explanation. Diagram policy comes from [SKILL.md](../SKILL.md); templates do not make diagrams mandatory. Adapt structure as well as labels to evidence in the paper. Omit example modules, inputs, and arrows not supported by the source. Wrap output in fenced `mermaid` blocks.
+
+Quick index: [overview](#template-1-paper-overview-mindmap), [method](#template-2-method-flowchart-pipelinearchitecture), [training](#template-3-training-pipeline), [memory/data flow](#template-4-memory--data-flow-architecture), [experiment](#template-5-experiment-pipeline), [comparison](#template-6-comparison-matrix-for-multi-paper-comparison-mode), [decision](#template-7-decision--logic-flow-in-method).
+
+For a theoretical paper, use assumptions → lemma → theorem when that matches the proof; for a survey, use the paper's actual taxonomy. Label your diagram as a reconstruction of the argument/method with its source sections, rather than an original figure from the paper. A user request for no diagrams always wins.
 
 ---
 
 ## Template 1: Paper Overview Mindmap
 
-Used in Deep mode at the start to give a structural overview.
+Useful near the start of Reading → Deep when a structural overview adds information.
 
 ```mermaid
 mindmap
@@ -33,15 +37,15 @@ mindmap
 
 **Adaptation notes**:
 - If the paper has 4+ modules, group them under 2-3 category nodes
-- Key metrics in the Experiments branch should include specific numbers when impressive
+- Include representative metrics only with their context; do not select them merely because they look impressive
 
 ---
 
 ## Template 2: Method Flowchart (Pipeline/Architecture)
 
-Used in both Skim (simplified) and Deep (full) modes. This is the most important diagram.
+Use a simplified version for Reading → Skim when a multistage method benefits, or a detailed version for Reading → Deep when useful. A single-step method usually needs no diagram.
 
-### Basic version (for Skim mode)
+### Basic version (for Reading → Skim)
 
 ```mermaid
 flowchart LR
@@ -51,7 +55,7 @@ flowchart LR
     D --> E[Output]
 ```
 
-### Detailed version (for Deep mode)
+### Detailed version (for Reading → Deep)
 
 ```mermaid
 flowchart TB
@@ -259,4 +263,6 @@ flowchart TD
 5. **Colors**: Use sparingly. Blue for processing, green for data, purple for model, gray for external/optional
 6. **Dashed lines** (`-.->`): Use for async, optional, or iterative connections
 7. **Thick lines** (`==>`) : Use for the main/happy path
-8. **Always test**: If a diagram has more than 30 nodes, split into sub-diagrams
+8. **Readability**: If a diagram has more than 30 nodes, split into sub-diagrams
+9. **Labels and syntax**: Use simple unique node IDs and quoted labels for text containing punctuation or mathematical notation, e.g. `score["Score s = wᵀx"]`. Explain complex formulas in surrounding text rather than relying on renderer-specific math support.
+10. **Validation**: When a Mermaid parser/renderer is available, parse or render the actual output and correct errors. Otherwise inspect fence balance, IDs, quoted labels, subgraph endings, and source fidelity; do not claim rendering was verified. If the destination cannot display Mermaid, provide a concise textual structure or an available rendered artifact as appropriate.
