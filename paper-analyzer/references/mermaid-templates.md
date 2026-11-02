@@ -1,6 +1,6 @@
 # Mermaid Diagram Templates for Paper Analysis
 
-Use only the template relevant to the requested explanation. Diagram policy comes from [SKILL.md](../SKILL.md); templates do not make diagrams mandatory. Adapt structure as well as labels to evidence in the paper. Omit example modules, inputs, and arrows not supported by the source. Wrap output in fenced `mermaid` blocks.
+Use only the template relevant to the requested explanation. Diagram policy comes from [SKILL.md](../SKILL.md), with selection and provenance in [visualization-guidance.md](visualization-guidance.md); templates do not make diagrams mandatory. Adapt structure as well as labels to evidence in the paper. Omit example modules, inputs, and arrows not supported by the source. Wrap output in fenced `mermaid` blocks.
 
 Quick index: [overview](#template-1-paper-overview-mindmap), [method](#template-2-method-flowchart-pipelinearchitecture), [training](#template-3-training-pipeline), [memory/data flow](#template-4-memory--data-flow-architecture), [experiment](#template-5-experiment-pipeline), [comparison](#template-6-comparison-matrix-for-multi-paper-comparison-mode), [decision](#template-7-decision--logic-flow-in-method).
 
@@ -10,7 +10,7 @@ For a theoretical paper, use assumptions → lemma → theorem when that matches
 
 ## Template 1: Paper Overview Mindmap
 
-Useful near the start of Reading → Deep when a structural overview adds information.
+Useful near the start of a substantial explanation when a structural overview adds information.
 
 ```mermaid
 mindmap
@@ -43,9 +43,9 @@ mindmap
 
 ## Template 2: Method Flowchart (Pipeline/Architecture)
 
-Use a simplified version for Reading → Skim when a multistage method benefits, or a detailed version for Reading → Deep when useful. A single-step method usually needs no diagram.
+Use a simplified version for a compact overview or a detailed version when intermediate steps matter. A single-step method usually needs no diagram.
 
-### Basic version (for Reading → Skim)
+### Basic version
 
 ```mermaid
 flowchart LR
@@ -55,7 +55,7 @@ flowchart LR
     D --> E[Output]
 ```
 
-### Detailed version (for Reading → Deep)
+### Detailed version
 
 ```mermaid
 flowchart TB

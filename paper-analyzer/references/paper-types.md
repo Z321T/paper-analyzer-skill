@@ -13,7 +13,7 @@ Classify the contribution before applying a template. Mixed papers can use multi
 
 Within the chosen type, tailor the output:
 
-- In Reading → Deep, replace “training details” with “proof assumptions,” “review protocol,” or “implementation details” when appropriate. Replace method pipelines with argument structure or omit redundant diagrams.
+- In Reading, replace “training details” with “proof assumptions,” “review protocol,” or “implementation details” when appropriate. Replace method pipelines with argument structure or omit redundant diagrams.
 - In Review, evidence can be a proof, observation, qualitative analysis, or an experiment. An absence of experiments does not by itself imply an unsupported theorem or qualitative finding.
 - In reproduction readiness, identify which materials are necessary for the key claim. A teaching note can be correct and verifiable without being novel. A privacy-restricted dataset can present a real access barrier without implying poor scientific conduct.
 - Use N/A with a reason for irrelevant criteria. Use unknown for unseen material. Do not count either as a failed requirement, and do not average them into a numeric score.

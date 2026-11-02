@@ -14,7 +14,7 @@ Use the applicable [paper-type criteria](paper-types.md). Review accessible supp
 | ? Unknown / unverified | Not inspected, inaccessible, or insufficient information to determine status. |
 | N/A | Not needed for this paper's central result. Give a brief reason. |
 
-Missing a link in the paper means external code status is unknown, not necessarily closed. A statement of intended release is not a verified release. Restricted data may require an access process; assess that process and the resulting barrier rather than equating restricted licensing with invalid science.
+Apply the availability distinctions in [evidence-handling.md](evidence-handling.md). Restricted data may require an access process; assess that process and the resulting barrier rather than equating restricted licensing with invalid science.
 
 ## Dimensions to select
 
@@ -30,7 +30,7 @@ For a purely analytic paper, prioritize proof completeness and assumptions and m
 
 ## Report
 
-Use a compact table in Reading → Deep and Review unless the user's format excludes tables. Select meaningful rows; do not add irrelevant rows merely to fill a fixed five-part score.
+Use a compact table when an explicit reproduction task or a substantive review benefits from it, unless the user's format excludes tables. Ordinary Reading mentions only consequential verification conditions; expand this assessment when requested or when a material obstacle warrants it. Select meaningful rows rather than filling a fixed five-part score.
 
 | Applicable dimension | Status | Evidence / location / inspected scope | Remaining obstacle |
 | --- | --- | --- | --- |

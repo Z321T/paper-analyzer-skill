@@ -1,3 +1,4 @@
-# Local test fixtures and validation results
+# Private or generated test material; public fixtures and records are tracked
 /test/
-/tests/
+/tests/private/
+/tests/generated/

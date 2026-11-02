@@ -12,7 +12,7 @@ Use a nearby translation as assistance only after matching title/version and sec
 
 Read supplied supplementary material when it bears on the question. If a referenced appendix is missing, say “not available in the supplied material,” not “the authors omitted it.” Check an accessible source link when useful; avoid turning a focused reading task into an unrestricted literature search.
 
-For long papers, work through relevant sections in manageable chunks and keep a coverage note. Reading → Skim may read selectively and disclose this. Reading → Walkthrough must cover the requested sections in order; if limits prevent completion, identify completed and outstanding sections instead of claiming the whole paper was read. Split long deliverables into clearly named parts/files when appropriate to the user's requested destination, keeping the selected task and reading type consistent.
+For long papers, work through relevant sections in manageable chunks and keep a coverage note. A brief overview may read selectively and disclose this. A section-by-section request requires covering the requested sections in order; if limits prevent completion, identify completed and outstanding sections instead of claiming the whole paper was read. Split long deliverables into clearly named parts/files when appropriate to the user's requested destination, preserving the requested scope, depth, and order.
 
 ## Evidence states
 
@@ -20,7 +20,8 @@ For long papers, work through relevant sections in manageable chunks and keep a 
 | --- | --- | --- |
 | Reported | Directly stated in accessible paper material | “Table 2 reports…” |
 | Verified externally | A source was actually inspected | “Repository documentation checked on [date] states…” |
-| Inferred | Your deduction, calculation, or hypothesis | “From the stated formula, I infer…” |
+| Inferred | A deduction or calculation with identifiable premises | “From the stated formula, I infer…” |
+| Hypothesized | A plausible explanation or prediction not established by available evidence | “One untested possibility is…” |
 | Not reported in reviewed material | Searched the relevant accessible material without finding it | “No seed values were found in the supplied main text; appendix unavailable.” |
 | Unknown / unverified | Insufficient access or no check performed | “Code availability not verified.” |
 | N/A | Criterion does not apply to this kind of work | “Training seeds: N/A for this deterministic proof.” |
@@ -36,6 +37,8 @@ Quantitative results should retain the relevant dataset/split, metric and direct
 When interpreting an equation, preserve its assumptions, domains, notation, and variable definitions. Label added derivations or numerical examples as your explanation, not an experiment from the paper. Flag unreadable or inconsistent notation instead of silently choosing a convenient replacement.
 
 ## External verification
+
+When the user requests background research, actually consult available primary sources or disclose retrieval limits. Bound the search by the question: establish the relevant research context, closest predecessors, and the specific change this paper makes. Do not automatically expand ordinary paper reading into a literature review. Stop when the needed context is supported, or state the unresolved gap. If later developments matter, distinguish them from what was known at publication time.
 
 Use primary sources (paper, official project/repository, proceedings) for bibliographic facts and implementation status. Label the checked version/date for changing facts. Treat citation counts as optional and usually omit them; if requested, report provider and retrieval date.
 
