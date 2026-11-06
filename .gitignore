@@ -1,4 +1,3 @@
-# Private or generated test material; public fixtures and records are tracked
-/test/
-/tests/private/
-/tests/generated/
+# Local test material
+/test
+/tests/
